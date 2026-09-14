@@ -10,6 +10,7 @@ export interface PolaroidPhoto {
   date?: string;
   rotation: string;
   tapeColor: string;
+  type?: 'image' | 'video';
 }
 
 export interface ScrapbookContent {
@@ -35,17 +36,6 @@ export interface ScrapbookContent {
     heading: string;
     notes: string[];
     footerNote: string;
-  };
-  section4: {
-    mainText: string;
-    subNote: string;
-    labels: {
-      clock: string;
-      hangingCharm: string;
-      window: string;
-      plushBear: string;
-      paperHeart: string;
-    };
   };
   section5: {
     letterTitle: string;
@@ -91,35 +81,30 @@ export const scrapbookContent: ScrapbookContent = {
     photos: [
       {
         id: "photo-1",
-        url: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80",
-        caption: "One of my favourite moments 🤍",
+        url: "/media/favourite-moment.mp4",
+        caption: "One of my favourite moments",
         date: "Weekend memories",
         rotation: "-rotate-2",
         tapeColor: "bg-[#e8d5c4]/80",
+        type: "video",
       },
       {
         id: "photo-2",
-        url: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80",
+        url: "/media/together-main.jpg",
         caption: "You really made this birthday special.",
         date: "A day I’ll remember",
         rotation: "rotate-2",
         tapeColor: "bg-[#d8e2dc]/80",
+        type: "image",
       },
       {
         id: "photo-3",
-        url: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=600&q=80",
+        url: "/media/menu.jpg",
         caption: "I noticed the little things too.",
         date: "So much thought",
         rotation: "-rotate-1",
         tapeColor: "bg-[#f5e1da]/80",
-      },
-      {
-        id: "photo-4",
-        url: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=600&q=80",
-        caption: "A weekend I don’t want one mistake to erase.",
-        date: "Holding onto the good",
-        rotation: "rotate-3",
-        tapeColor: "bg-[#e2ece9]/80",
+        type: "image",
       },
     ],
     message:
@@ -131,27 +116,12 @@ export const scrapbookContent: ScrapbookContent = {
     notes: [
       "I should have asked you directly instead of going through your phone.",
       "I should have respected your privacy.",
-      "I should not have taken a screenshot of a private conversation.",
       "I should have waited until we were both awake and calm before bringing it up.",
       "I should have listened more instead of letting fear decide what I did next.",
       "I should not have made my anxiety feel like something you had to carry for me.",
     ],
     footerNote:
       "What I saw scared and hurt me, but that does not make the way I handled it right.",
-  },
-
-  section4: {
-    mainText:
-      "There are still things I think we should talk about when we’re both ready. But I understand that trust is not only about believing someone — it is also about respecting their privacy and speaking to them directly when something feels wrong.",
-    subNote:
-      "I don’t expect this page to fix anything. I want what I do after this to show that I actually understood what you were telling me.",
-    labels: {
-      clock: "No rushing you",
-      hangingCharm: "A little gentleness",
-      window: "Room to breathe",
-      plushBear: "Care without pressure",
-      paperHeart: "Something sincere",
-    },
   },
 
   section5: {
