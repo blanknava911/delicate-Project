@@ -70,6 +70,8 @@ export interface ScrapbookContent {
   };
 }
 
+const mediaPath = (filename: string) => `${import.meta.env.BASE_URL}media/${filename}`;
+
 export const scrapbookContent: ScrapbookContent = {
   recipientName: "My love",
 
@@ -94,8 +96,8 @@ export const scrapbookContent: ScrapbookContent = {
     photos: [
       {
         id: "photo-1",
-        url: "/media/favourite-moment.mp4",
-        videoUrl: "/media/favourite-moment.mp4",
+        url: mediaPath("favourite-moment.mp4"),
+        videoUrl: mediaPath("favourite-moment.mp4"),
         caption: "One of my favourite moments",
         date: "Night on the balcony",
         rotation: "-rotate-2",
@@ -104,7 +106,7 @@ export const scrapbookContent: ScrapbookContent = {
       },
       {
         id: "photo-2",
-        url: "/media/together-main.jpg",
+        url: mediaPath("together-main.jpg"),
         caption: "You really made this birthday special.",
         date: "Us together",
         rotation: "rotate-2",
@@ -112,7 +114,7 @@ export const scrapbookContent: ScrapbookContent = {
       },
       {
         id: "photo-3",
-        url: "/media/menu.jpg",
+        url: mediaPath("menu.jpg"),
         caption: "I noticed the little things too.",
         date: "Reading the menu",
         rotation: "-rotate-1",
