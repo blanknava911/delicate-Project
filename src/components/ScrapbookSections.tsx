@@ -9,29 +9,15 @@ import {
   VintageStamp,
 } from './PaperElements';
 import { WindowCollage } from './WindowCollage';
-import { PhotoEditorModal } from './PhotoEditorModal';
-import { ScrapbookContent, PolaroidPhoto } from '../content';
-import { ChevronDown, Edit3 } from 'lucide-react';
+import { ScrapbookContent } from '../content';
+import { ChevronDown } from 'lucide-react';
 
 interface ScrapbookSectionsProps {
   content: ScrapbookContent;
 }
 
 export function ScrapbookSections({ content }: ScrapbookSectionsProps) {
-  // Photos state (allows on-the-fly photo swapping and caption editing)
-  const [photos, setPhotos] = useState<PolaroidPhoto[]>(() => {
-    const saved = localStorage.getItem('apology_photos_v1');
-    if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch {
-        return content.section2.photos;
-      }
-    }
-    return content.section2.photos;
-  });
-
-  const [activeEditingPhoto, setActiveEditingPhoto] = useState<PolaroidPhoto | null>(null);
+  const photos = content.section2.photos;
 
   // Final screen heart click state
   const [hasClickedFinalHeart, setHasClickedFinalHeart] = useState(false);
@@ -151,16 +137,6 @@ export function ScrapbookSections({ content }: ScrapbookSectionsProps) {
                   className="w-full h-full object-cover grayscale-[10%] contrast-[98%] group-hover:scale-105 transition-transform duration-500"
                 />
 
-                {/* Edit Photo Overlay button */}
-                <button
-                  type="button"
-                  onClick={() => setActiveEditingPhoto(photo)}
-                  className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 hover:bg-black/80 text-white p-1.5 rounded-full backdrop-blur-xs text-xs flex items-center gap-1 cursor-pointer"
-                  title="Change this photo or caption"
-                >
-                  <Edit3 className="w-3.5 h-3.5" />
-                  <span className="text-[10px] pr-1">Replace</span>
-                </button>
               </div>
 
               {/* Handwritten Caption */}
@@ -452,14 +428,6 @@ export function ScrapbookSections({ content }: ScrapbookSectionsProps) {
         </div>
       </section>
 
-      {/* Photo Replacer Modal */}
-      {activeEditingPhoto && (
-        <PhotoEditorModal
-          photo={activeEditingPhoto}
-          onClose={() => setActiveEditingPhoto(null)}
-          onSave={handleUpdatePhoto}
-        />
-      )}
     </div>
   );
 }
