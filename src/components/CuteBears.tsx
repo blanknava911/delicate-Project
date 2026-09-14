@@ -11,7 +11,7 @@ export function CuteBears({ scene, className = '' }: CuteBearsProps) {
       <div className={`relative flex items-center justify-center select-none ${className}`}>
         <svg
           viewBox="0 0 320 220"
-          className="w-full max-w-[280px] sm:max-w-[320px] h-auto drop-shadow-sm"
+          className="doll-svg w-full max-w-[280px] sm:max-w-[320px] h-auto drop-shadow-sm"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -24,8 +24,8 @@ export function CuteBears({ scene, className = '' }: CuteBearsProps) {
             <rect x="0" y="5" width="22" height="18" rx="4" fill="#faf5ec" stroke="#b09b85" strokeWidth="1.5" />
             <path d="M22 8c4 0 6 3 6 6s-2 6-6 6" stroke="#b09b85" strokeWidth="1.5" fill="none" strokeLinecap="round" />
             {/* Gentle steam */}
-            <path d="M7 1c-1-3 1-5 0-7" stroke="#caa992" strokeWidth="1.2" strokeLinecap="round" opacity="0.7" />
-            <path d="M14 0c1-3-1-5 0-7" stroke="#caa992" strokeWidth="1.2" strokeLinecap="round" opacity="0.7" />
+            <path className="animated-steam" d="M7 1c-1-3 1-5 0-7" stroke="#caa992" strokeWidth="1.2" strokeLinecap="round" opacity="0.7" />
+            <path className="animated-steam" d="M14 0c1-3-1-5 0-7" stroke="#caa992" strokeWidth="1.2" strokeLinecap="round" opacity="0.7" />
             <ellipse cx="11" cy="7" rx="8" ry="2" fill="#d49b77" />
           </g>
 
@@ -129,7 +129,7 @@ export function CuteBears({ scene, className = '' }: CuteBearsProps) {
           </g>
 
           {/* Floating tiny soft heart */}
-          <g transform="translate(155, 60)">
+          <g className="animated-heart" transform="translate(155, 60)">
             <path
               d="M10 18 C10 18 2 13 2 7.5 C2 4.5 4.5 2 7.5 2 C9.2 2 10 3 10 3 C10 3 10.8 2 12.5 2 C15.5 2 18 4.5 18 7.5 C18 13 10 18 10 18 Z"
               fill="#e39a8e"
@@ -146,7 +146,7 @@ export function CuteBears({ scene, className = '' }: CuteBearsProps) {
       <div className={`relative flex items-center justify-center select-none ${className}`}>
         <svg
           viewBox="0 0 300 200"
-          className="w-full max-w-[260px] sm:max-w-[290px] h-auto drop-shadow-sm"
+          className="doll-svg w-full max-w-[260px] sm:max-w-[290px] h-auto drop-shadow-sm"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -237,7 +237,7 @@ export function CuteBears({ scene, className = '' }: CuteBearsProps) {
     <div className={`relative flex items-center justify-center select-none ${className}`}>
       <svg
         viewBox="0 0 300 200"
-        className="w-full max-w-[260px] sm:max-w-[290px] h-auto drop-shadow-sm"
+        className="doll-svg w-full max-w-[260px] sm:max-w-[290px] h-auto drop-shadow-sm"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
