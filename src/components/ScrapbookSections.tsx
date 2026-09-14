@@ -120,7 +120,7 @@ export function ScrapbookSections({ content }: ScrapbookSectionsProps) {
           <div className="absolute top-4 right-4 sm:top-5 sm:right-6">
             <VintageStamp
               text="THANK YOU"
-              imageSrc="/media/together-postage.jpg"
+              imageSrc={`${import.meta.env.BASE_URL}media/together-postage.jpg`}
             />
           </div>
 
@@ -205,9 +205,6 @@ export function ScrapbookSections({ content }: ScrapbookSectionsProps) {
         className="w-full max-w-3xl mx-auto px-4 py-20 relative"
       >
         <div className="text-center mb-10">
-          <span className="inline-block px-3 py-1 bg-[#f4ebd9] rounded-full text-xs font-note uppercase tracking-wider text-[#8b725b] mb-2 border border-[#dfceb9]">
-            Deeply Sincere
-          </span>
           <h2 className="text-3xl sm:text-4xl font-handwriting font-bold text-[#3e3024]">
             {content.section5.letterTitle}
           </h2>
