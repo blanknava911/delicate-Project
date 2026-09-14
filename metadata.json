@@ -1,0 +1,6 @@
+{
+  "name": "A Letter For You",
+  "description": "A sincere handmade digital scrapbook apology and love letter with Polaroid memories, sticky notes, and space to heal.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
