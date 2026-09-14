@@ -154,7 +154,7 @@ export const scrapbookContent: ScrapbookContent = {
 
   section5: {
     letterTitle: "What I really wanted to say",
-    letterDate: "From me, properly",
+    letterDate: "",
     letterGreeting: "My Wifey,",
     paragraphs: [
       "I’m sorry for going through your phone while you were asleep. I understand why that shocked you and why it made you feel like I didn’t trust you.",
