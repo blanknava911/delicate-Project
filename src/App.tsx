@@ -19,8 +19,11 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#fcf8f2] text-[#4a3f35] font-sans selection:bg-[#eddcd2] selection:text-[#5e4b3c] relative overflow-x-hidden">
-      {/* Background Audio Player (Music is OFF by default, customizable) */}
-      <AudioPlayer />
+      {/* Background Audio Player (Music is OFF by default) */}
+      <AudioPlayer
+        customAudioUrl={`${import.meta.env.BASE_URL}media/One%20Kiss.mp3`}
+        trackName="One Kiss"
+      />
 
       {!hasEntered ? (
         <StartScreen
@@ -54,17 +57,14 @@ export default function App() {
                 <span>A digital scrapbook made with care</span>
               </div>
 
-              {/* Reserved spacing for the fixed AudioPlayer in top right */}
               <div className="w-28 sm:w-32" />
             </div>
           </header>
 
-          {/* Main Scrapbook Content (All 7 Sections) */}
           <main>
             <ScrapbookSections content={scrapbookContent} />
           </main>
 
-          {/* Bottom Floating Scroll to Top */}
           <div className="fixed bottom-6 right-6 z-30">
             <button
               type="button"
@@ -80,4 +80,3 @@ export default function App() {
     </div>
   );
 }
-
