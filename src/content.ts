@@ -153,12 +153,11 @@ export const scrapbookContent: ScrapbookContent = {
   section5: {
     letterTitle: "What I really wanted to say",
     letterDate: "From me, properly",
-    letterGreeting: "My love,",
+    letterGreeting: "My Wifey,",
     paragraphs: [
       "I’m sorry for going through your phone while you were asleep. I understand why that shocked you and why it made you feel like I didn’t trust you.",
-      "Taking a screenshot made that invasion of privacy worse. I shouldn’t have done it.",
       "You had spent so much time and effort making sure I had a beautiful birthday and weekend. I saw that effort, I felt it, and I appreciated it. I hate that the way I handled things afterwards made it feel as though all of that was reduced to one painful argument.",
-      "There were things I saw that genuinely scared me, and I still think some of them deserve an honest conversation eventually. But I should have spoken to you directly instead of searching for answers on your phone.",
+      "I should have spoken to you directly instead of searching for answers on your phone.",
       "I also heard what you said about my anxiety afterwards. You were already hurt, and then it felt like you had to worry about me too. I don’t want an apology from me to become another situation where you have to comfort me.",
       "You are allowed to be upset with me. You are allowed to be disappointed. And if you need space, I will respect that.",
       "I can’t change what I did. What I can do is learn from it: ask instead of investigate, listen before reacting, and handle fear without letting it make my decisions for me.",
@@ -166,7 +165,7 @@ export const scrapbookContent: ScrapbookContent = {
       "I’m sorry for the part I got wrong.",
     ],
     closing: "With love,",
-    signature: "Me 🤍",
+    signature: "Hubby",
   },
 
   section6: {
