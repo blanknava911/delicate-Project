@@ -10,7 +10,9 @@ export interface PolaroidPhoto {
   date?: string;
   rotation: string;
   tapeColor: string;
-  type?: 'image' | 'video';
+  isVideo?: boolean;
+  videoUrl?: string;
+  posterUrl?: string;
 }
 
 export interface ScrapbookContent {
@@ -36,6 +38,17 @@ export interface ScrapbookContent {
     heading: string;
     notes: string[];
     footerNote: string;
+  };
+  section4?: {
+    mainText: string;
+    subNote: string;
+    labels: {
+      clock: string;
+      hangingCharm: string;
+      window: string;
+      plushBear: string;
+      paperHeart: string;
+    };
   };
   section5: {
     letterTitle: string;
@@ -82,29 +95,28 @@ export const scrapbookContent: ScrapbookContent = {
       {
         id: "photo-1",
         url: "/media/favourite-moment.mp4",
+        videoUrl: "/media/favourite-moment.mp4",
         caption: "One of my favourite moments",
-        date: "Weekend memories",
+        date: "Night on the balcony",
         rotation: "-rotate-2",
         tapeColor: "bg-[#e8d5c4]/80",
-        type: "video",
+        isVideo: true,
       },
       {
         id: "photo-2",
         url: "/media/together-main.jpg",
         caption: "You really made this birthday special.",
-        date: "A day I’ll remember",
+        date: "Us together",
         rotation: "rotate-2",
         tapeColor: "bg-[#d8e2dc]/80",
-        type: "image",
       },
       {
         id: "photo-3",
         url: "/media/menu.jpg",
         caption: "I noticed the little things too.",
-        date: "So much thought",
+        date: "Reading the menu",
         rotation: "-rotate-1",
         tapeColor: "bg-[#f5e1da]/80",
-        type: "image",
       },
     ],
     message:
@@ -122,6 +134,20 @@ export const scrapbookContent: ScrapbookContent = {
     ],
     footerNote:
       "What I saw scared and hurt me, but that does not make the way I handled it right.",
+  },
+
+  section4: {
+    mainText:
+      "There are still things I think we should talk about when we’re both ready. But I understand that trust is not only about believing someone — it is also about respecting their privacy and speaking to them directly when something feels wrong.",
+    subNote:
+      "I don’t expect this page to fix anything. I want what I do after this to show that I actually understood what you were telling me.",
+    labels: {
+      clock: "No rushing you",
+      hangingCharm: "A little gentleness",
+      window: "Room to breathe",
+      plushBear: "Care without pressure",
+      paperHeart: "Something sincere",
+    },
   },
 
   section5: {

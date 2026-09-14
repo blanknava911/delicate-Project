@@ -135,16 +135,54 @@ export function RibbonBow({ className = '', color = '#d68c85' }: { className?: s
 }
 
 // Vintage Postage Stamp
-export function VintageStamp({ className = '', text = 'LOVE' }: { className?: string; text?: string }) {
+export function VintageStamp({
+  className = '',
+  text = 'THANK YOU',
+  imageSrc,
+}: {
+  className?: string;
+  text?: string;
+  imageSrc?: string;
+}) {
   return (
-    <div className={`relative p-2 bg-[#faf4ec] border border-[#d6c7b2] rounded-xs shadow-xs text-center ${className}`}>
-      <div className="border border-dashed border-[#cbbca7] px-2 py-1 flex flex-col items-center">
-        <span className="text-[9px] font-sans font-bold tracking-widest text-[#937b67]">POSTAGE</span>
-        <span className="text-xs font-handwriting text-[#b56e60] font-bold">{text}</span>
-        <span className="text-[8px] text-[#937b67] font-serif">Air Mail</span>
+    <div className={`relative p-2 bg-[#faf5ed] border border-[#d6c7b2] rounded-xs shadow-scrapbook text-center ${className}`}>
+      <div className="border border-dashed border-[#cbbca7] p-1.5 flex flex-col items-center">
+        <span className="text-[9px] font-sans font-extrabold tracking-widest text-[#8c745f] leading-none mb-1">
+          POSTAGE
+        </span>
+        {imageSrc && (
+          <div className="my-1 w-16 sm:w-20 aspect-3/4 overflow-hidden rounded-xs border border-[#cfc1ad] bg-[#ebdccb] shadow-xs relative">
+            <img
+              src={imageSrc}
+              alt="Us together"
+              referrerPolicy="no-referrer"
+              className="w-full h-full object-cover"
+            />
+            {/* Postal cancellation mark overlay */}
+            <div className="absolute inset-0 pointer-events-none opacity-30 flex items-center justify-center">
+              <svg viewBox="0 0 100 60" className="w-full h-full text-[#5e4b3c]" stroke="currentColor" fill="none" strokeWidth="1.5">
+                <circle cx="25" cy="30" r="18" strokeDasharray="3 2" />
+                <path d="M45 20 C 60 15, 75 25, 95 20" />
+                <path d="M45 30 C 60 25, 75 35, 95 30" />
+                <path d="M45 40 C 60 35, 75 45, 95 40" />
+              </svg>
+            </div>
+          </div>
+        )}
+        <span className="text-xs font-handwriting text-[#b56e60] font-bold leading-tight">
+          {text}
+        </span>
+        <span className="text-[8px] text-[#8c745f] font-serif uppercase tracking-wider mt-0.5">
+          Air Mail
+        </span>
       </div>
       {/* Stamp perforation imitation */}
-      <div className="absolute -top-1 left-2 right-2 flex justify-between">
+      <div className="absolute -top-1 left-2 right-2 flex justify-between pointer-events-none">
+        {[...Array(6)].map((_, i) => (
+          <div key={i} className="w-1.5 h-1.5 rounded-full bg-[#fcf8f2]" />
+        ))}
+      </div>
+      <div className="absolute -bottom-1 left-2 right-2 flex justify-between pointer-events-none">
         {[...Array(6)].map((_, i) => (
           <div key={i} className="w-1.5 h-1.5 rounded-full bg-[#fcf8f2]" />
         ))}

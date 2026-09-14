@@ -91,7 +91,10 @@
 #section-weekend video {
   object-fit: contain !important;
   filter: none !important;
-  transform: none !important;
+  image-rendering: auto;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: high-quality;
+  backface-visibility: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {

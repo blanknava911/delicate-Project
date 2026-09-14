@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { CuteBears } from './CuteBears';
 import {
   WashiTape,
-  PaperClip,
   PushPin,
   DoodleHeart,
   RibbonBow,
   VintageStamp,
 } from './PaperElements';
+import { PolaroidMediaCard } from './PolaroidMediaCard';
 import { ScrapbookContent } from '../content';
 import { ChevronDown } from 'lucide-react';
 
@@ -17,26 +17,33 @@ interface ScrapbookSectionsProps {
 
 export function ScrapbookSections({ content }: ScrapbookSectionsProps) {
   const photos = content.section2.photos;
+
+  // Final screen heart click state
   const [hasClickedFinalHeart, setHasClickedFinalHeart] = useState(false);
   const [floatingHearts, setFloatingHearts] = useState<{ id: number; left: number }[]>([]);
 
   const handleFinalHeartClick = () => {
     setHasClickedFinalHeart(true);
-    setFloatingHearts(
-      Array.from({ length: 9 }).map((_, i) => ({
-        id: Date.now() + i,
-        left: 20 + Math.random() * 60,
-      }))
-    );
+    // Generate gentle floating hearts
+    const newHearts = Array.from({ length: 9 }).map((_, i) => ({
+      id: Date.now() + i,
+      left: 20 + Math.random() * 60, // percentage
+    }));
+    setFloatingHearts(newHearts);
   };
 
   const scrollToSection = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
     <div className="w-full pb-28 text-[#4a3a2d]">
-      {/* INTRODUCTION */}
+      {/* ========================================================
+          SECTION 1 — INTRODUCTION
+          ======================================================== */}
       <section
         id="section-intro"
         className="min-h-screen flex flex-col items-center justify-center px-4 py-16 text-center paper-dots relative"
@@ -76,8 +83,13 @@ export function ScrapbookSections({ content }: ScrapbookSectionsProps) {
         </div>
       </section>
 
-      {/* CHERISHED MEMORIES */}
-      <section id="section-weekend" className="w-full max-w-5xl mx-auto px-4 py-20 relative">
+      {/* ========================================================
+          SECTION 2 — THE WEEKEND (PHOTO SCRAPBOOK)
+          ======================================================== */}
+      <section
+        id="section-weekend"
+        className="w-full max-w-5xl mx-auto px-4 py-20 relative"
+      >
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#f5ebde] rounded-full text-xs font-note uppercase tracking-wider text-[#8b725e] mb-3 border border-[#e2d2be]">
             <DoodleHeart className="w-3.5 h-3.5" fill="#e0aba2" stroke="#b8695d" />
@@ -89,80 +101,42 @@ export function ScrapbookSections({ content }: ScrapbookSectionsProps) {
           <div className="w-24 h-0.5 bg-[#decebc] mx-auto mt-3 rounded-full" />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-6 mb-14 items-start justify-center max-w-4xl mx-auto">
+        {/* Polaroid Photos Grid (3 Items: 1 Video, 2 Together Photo, 3 Menu Photo) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-6 mb-12 items-start justify-center max-w-4xl mx-auto">
           {photos.map((photo, idx) => (
-            <div
+            <PolaroidMediaCard
               key={photo.id}
-              className={`group relative bg-white border border-[#e5d8c8] p-3 pb-6 rounded-xs shadow-scrapbook hover:shadow-scrapbook-lg hover:scale-102 transition-all duration-300 ${photo.rotation}`}
-            >
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
-                {idx % 2 === 0 ? (
-                  <WashiTape color={photo.tapeColor} rotate="rotate-1" width="w-20" />
-                ) : (
-                  <div className="relative -top-2">
-                    <PaperClip className="w-5 h-10" />
-                  </div>
-                )}
-              </div>
-
-              <div className="relative w-full aspect-[4/5] bg-[#ebdccb] overflow-hidden rounded-xs border border-[#eae0d2]">
-                {photo.type === 'video' ? (
-                  <video
-                    src={photo.url}
-                    controls
-                    playsInline
-                    preload="metadata"
-                    className="w-full h-full object-cover"
-                    aria-label={photo.caption}
-                  />
-                ) : (
-                  <img
-                    src={photo.url}
-                    alt={photo.caption}
-                    className="w-full h-full object-cover grayscale-[6%] contrast-[99%] group-hover:scale-105 transition-transform duration-500"
-                  />
-                )}
-              </div>
-
-              <div className="mt-3 text-center px-1">
-                <p className="font-handwriting text-base sm:text-lg text-[#4a392b] leading-tight min-h-[44px] flex items-center justify-center">
-                  “{photo.caption}”
-                </p>
-                {photo.date && (
-                  <span className="block text-[11px] font-sans text-[#a08a78] mt-1">— {photo.date}</span>
-                )}
-              </div>
-            </div>
+              photo={photo}
+              idx={idx}
+            />
           ))}
         </div>
 
-        <div className="max-w-2xl mx-auto relative bg-[#faf4ec] border border-[#dfceb9] p-6 pt-36 sm:p-8 sm:pt-10 sm:pr-44 rounded-2xl shadow-scrapbook min-h-[250px]">
+        {/* Accompanying Letter / Note for Section 2 with Postage Stamp of Couple */}
+        <div className="max-w-2xl mx-auto relative bg-[#faf4ec] border border-[#dfceb9] p-6 sm:p-8 rounded-2xl shadow-scrapbook">
           <div className="absolute -top-3.5 right-12">
             <WashiTape color="bg-[#ebd5c1]/90" rotate="-rotate-2" width="w-24" />
           </div>
-
-          <div className="absolute top-5 right-5 w-28 sm:w-32 rotate-3 bg-white p-2 pb-7 border border-[#d8c5b0] shadow-scrapbook">
-            <img
-              src="/media/together-postage.jpg"
-              alt="Us together"
-              className="w-full aspect-[4/5] object-cover border border-[#eee3d8]"
+          <div className="absolute top-4 right-4 sm:top-5 sm:right-6">
+            <VintageStamp
+              text="THANK YOU"
+              imageSrc="/media/together-postage.jpg"
             />
-            <div className="absolute -top-4 -right-4 scale-75 origin-top-right">
-              <VintageStamp text="THANK YOU" />
-            </div>
-            <span className="absolute bottom-1.5 left-0 right-0 text-center font-note text-[10px] tracking-[0.18em] text-[#8b725e]">
-              AIR MAIL
-            </span>
           </div>
 
-          <p className="font-serif text-[#4d3c2e] text-base sm:text-lg leading-relaxed whitespace-pre-line">
+          <p className="font-serif text-[#4d3c2e] text-base sm:text-lg leading-relaxed whitespace-pre-line pt-2 pr-24 sm:pr-32">
             {content.section2.message}
           </p>
         </div>
       </section>
 
-      {/* THINGS I SHOULD HAVE DONE DIFFERENTLY */}
-      <section id="section-wrong" className="w-full max-w-5xl mx-auto px-4 py-20 relative">
+      {/* ========================================================
+          SECTION 3 — WHAT I DID WRONG (NOTES)
+          ======================================================== */}
+      <section
+        id="section-wrong"
+        className="w-full max-w-5xl mx-auto px-4 py-20 relative"
+      >
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-handwriting font-bold text-[#3c2e22]">
             {content.section3.heading}
@@ -170,6 +144,7 @@ export function ScrapbookSections({ content }: ScrapbookSectionsProps) {
           <div className="w-24 h-0.5 bg-[#ddcebc] mx-auto mt-2 rounded-full" />
         </div>
 
+        {/* Scrapbook Board with Pinned Sticky Note Cards */}
         <div className="relative bg-[#f5ede2] border-2 border-[#d8c3ad] rounded-3xl p-6 sm:p-10 shadow-scrapbook-lg mb-10">
           <div className="absolute -top-3 left-8">
             <WashiTape color="bg-[#dfd1bd]/90" rotate="-rotate-2" width="w-28" />
@@ -180,6 +155,7 @@ export function ScrapbookSections({ content }: ScrapbookSectionsProps) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
             {content.section3.notes.map((note, index) => {
+              // Varied note tilts and pastel sticky tones
               const noteStyles = [
                 { bg: 'bg-[#fffdf2]', border: 'border-[#ebd99f]', pinColor: '#c86f62', rotate: '-rotate-1' },
                 { bg: 'bg-[#fcf7ee]', border: 'border-[#e8d2be]', pinColor: '#7d8e6a', rotate: 'rotate-2' },
@@ -194,30 +170,40 @@ export function ScrapbookSections({ content }: ScrapbookSectionsProps) {
                   key={index}
                   className={`relative ${style.bg} border ${style.border} p-5 sm:p-6 rounded-xl shadow-scrapbook hover:scale-102 transition-transform duration-200 ${style.rotate}`}
                 >
+                  {/* Push pin */}
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
                     <PushPin color={style.pinColor} />
                   </div>
+
                   <div className="pt-2">
                     <span className="inline-block text-[11px] font-sans font-bold text-[#98816c] mb-2 tracking-wider">
                       NOTE 0{index + 1}
                     </span>
-                    <p className="font-handwriting text-lg sm:text-xl text-[#433325] leading-relaxed">“{note}”</p>
+                    <p className="font-handwriting text-lg sm:text-xl text-[#433325] leading-relaxed">
+                      "{note}"
+                    </p>
                   </div>
                 </div>
               );
             })}
           </div>
 
+          {/* Underneath the cards: sincere non-excuse reflection */}
           <div className="mt-10 pt-6 border-t border-[#dfcfbd] text-center max-w-xl mx-auto">
             <p className="font-serif italic text-base sm:text-lg text-[#5a483a] leading-relaxed">
-              “{content.section3.footerNote}”
+              "{content.section3.footerNote}"
             </p>
           </div>
         </div>
       </section>
 
-      {/* APOLOGY LETTER */}
-      <section id="section-letter" className="w-full max-w-3xl mx-auto px-4 py-20 relative">
+      {/* ========================================================
+          SECTION 5 — MY APOLOGY LETTER
+          ======================================================== */}
+      <section
+        id="section-letter"
+        className="w-full max-w-3xl mx-auto px-4 py-20 relative"
+      >
         <div className="text-center mb-10">
           <span className="inline-block px-3 py-1 bg-[#f4ebd9] rounded-full text-xs font-note uppercase tracking-wider text-[#8b725b] mb-2 border border-[#dfceb9]">
             Deeply Sincere
@@ -228,30 +214,51 @@ export function ScrapbookSections({ content }: ScrapbookSectionsProps) {
           <div className="w-20 h-0.5 bg-[#decebc] mx-auto mt-2 rounded-full" />
         </div>
 
+        {/* Large Handwritten Scrapbook Letter (Tilted, Lined Paper) */}
         <div className="relative bg-[#fdfbf6] paper-lined border-2 border-[#decbb7] p-8 sm:p-12 md:p-16 rounded-2xl shadow-scrapbook-lg -rotate-0.5">
-          <div className="absolute -top-3 -left-3"><WashiTape color="bg-[#ebd6c4]/90" rotate="-rotate-45" width="w-20" /></div>
-          <div className="absolute -top-3 -right-3"><WashiTape color="bg-[#d7e2d6]/90" rotate="rotate-45" width="w-20" /></div>
-          <div className="absolute -bottom-3 -left-3"><WashiTape color="bg-[#d7e2d6]/90" rotate="rotate-45" width="w-20" /></div>
-          <div className="absolute -bottom-3 -right-3"><WashiTape color="bg-[#ebd6c4]/90" rotate="-rotate-45" width="w-20" /></div>
+          {/* Taped corners */}
+          <div className="absolute -top-3 -left-3">
+            <WashiTape color="bg-[#ebd6c4]/90" rotate="-rotate-45" width="w-20" />
+          </div>
+          <div className="absolute -top-3 -right-3">
+            <WashiTape color="bg-[#d7e2d6]/90" rotate="rotate-45" width="w-20" />
+          </div>
+          <div className="absolute -bottom-3 -left-3">
+            <WashiTape color="bg-[#d7e2d6]/90" rotate="rotate-45" width="w-20" />
+          </div>
+          <div className="absolute -bottom-3 -right-3">
+            <WashiTape color="bg-[#ebd6c4]/90" rotate="-rotate-45" width="w-20" />
+          </div>
+
+          {/* Ribbon Bow on top */}
           <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
             <RibbonBow className="w-12 h-8" color="#d38b82" />
           </div>
 
+          {/* Letter Header */}
           <div className="flex justify-between items-baseline border-b border-[#ebdcca] pb-3 mb-6">
             <h3 className="font-handwriting text-2xl sm:text-3xl text-[#443325] font-bold">
               {content.section5.letterGreeting}
             </h3>
-            <span className="text-xs font-serif italic text-[#958170]">{content.section5.letterDate}</span>
+            <span className="text-xs font-serif italic text-[#958170]">
+              {content.section5.letterDate}
+            </span>
           </div>
 
+          {/* Letter Body Paragraphs */}
           <div className="space-y-4 text-[#4a392b] font-serif text-base sm:text-lg leading-relaxed">
             {content.section5.paragraphs.map((paragraph, pIdx) => (
-              <p key={pIdx} className="whitespace-pre-line">{paragraph}</p>
+              <p key={pIdx} className="whitespace-pre-line">
+                {paragraph}
+              </p>
             ))}
           </div>
 
+          {/* Letter Sign-off */}
           <div className="mt-8 pt-6 border-t border-[#ebdcca] flex flex-col items-end">
-            <span className="font-serif italic text-[#786351] text-base">{content.section5.closing}</span>
+            <span className="font-serif italic text-[#786351] text-base">
+              {content.section5.closing}
+            </span>
             <span className="font-handwriting text-3xl sm:text-4xl text-[#3b2b1d] font-bold mt-1">
               {content.section5.signature}
             </span>
@@ -259,8 +266,13 @@ export function ScrapbookSections({ content }: ScrapbookSectionsProps) {
         </div>
       </section>
 
-      {/* PROMISES */}
-      <section id="section-promises" className="w-full max-w-4xl mx-auto px-4 py-16 relative">
+      {/* ========================================================
+          SECTION 6 — SMALL PROMISES
+          ======================================================== */}
+      <section
+        id="section-promises"
+        className="w-full max-w-4xl mx-auto px-4 py-16 relative"
+      >
         <div className="text-center mb-12">
           <span className="inline-block px-3 py-1 bg-[#f4ebd9] rounded-full text-xs font-note uppercase tracking-wider text-[#8b725b] mb-2 border border-[#dfceb9]">
             Looking Forward
@@ -271,6 +283,7 @@ export function ScrapbookSections({ content }: ScrapbookSectionsProps) {
           <div className="w-20 h-0.5 bg-[#decebc] mx-auto mt-2 rounded-full" />
         </div>
 
+        {/* Grid of Little Paper Tags with Strings / Tape */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {content.section6.promises.map((promise, idx) => {
             const rotations = ['-rotate-2', 'rotate-1', '-rotate-1', 'rotate-2', '-rotate-2', 'rotate-1'];
@@ -280,35 +293,48 @@ export function ScrapbookSections({ content }: ScrapbookSectionsProps) {
                 key={idx}
                 className={`relative bg-[#fcf9f2] border border-[#dfcdb9] p-5 pt-8 rounded-xl shadow-scrapbook hover:scale-103 transition-transform duration-200 ${rot}`}
               >
+                {/* Paper tag eyelet hole or washi tape */}
                 <div className="absolute top-2 left-1/2 -translate-x-1/2 flex flex-col items-center">
                   <div className="w-3.5 h-3.5 rounded-full border-2 border-[#baa48f] bg-[#ede1d3] flex items-center justify-center">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#fcf8f2]" />
                   </div>
                   <div className="w-0.5 h-3 bg-[#baa48f]" />
                 </div>
-                <p className="font-handwriting text-xl sm:text-2xl text-[#453426] text-center font-bold">{promise}</p>
+
+                <p className="font-handwriting text-xl sm:text-2xl text-[#453426] text-center font-bold">
+                  {promise}
+                </p>
               </div>
             );
           })}
         </div>
       </section>
 
-      {/* FINAL SCREEN */}
-      <section id="section-final" className="w-full max-w-xl mx-auto px-4 py-20 text-center relative">
+      {/* ========================================================
+          SECTION 7 — FINAL SCREEN
+          ======================================================== */}
+      <section
+        id="section-final"
+        className="w-full max-w-xl mx-auto px-4 py-20 text-center relative"
+      >
         <div className="relative bg-[#fffdfa] border-2 border-[#e6d6c2] rounded-3xl p-7 sm:p-10 shadow-scrapbook-lg">
           <div className="absolute -top-3 left-1/2 -translate-x-1/2">
             <WashiTape color="bg-[#ebd7c5]/90" rotate="rotate-1" width="w-28" />
           </div>
 
-          <div className="my-4 flex justify-center"><CuteBears scene="side-by-side" /></div>
+          <div className="my-4 flex justify-center">
+            <CuteBears scene="side-by-side" />
+          </div>
 
           <h2 className="text-2xl sm:text-3xl font-handwriting font-bold text-[#3e3024] mb-4">
             {content.section7.heading}
           </h2>
+
           <p className="font-serif text-base sm:text-lg text-[#5a483a] leading-relaxed max-w-md mx-auto whitespace-pre-line mb-8">
             {content.section7.text}
           </p>
 
+          {/* Final Heart Button & Animation */}
           <div className="relative inline-block">
             <button
               type="button"
@@ -320,25 +346,34 @@ export function ScrapbookSections({ content }: ScrapbookSectionsProps) {
               {content.section7.heartButton}
             </button>
 
+            {/* Floating pastel hearts */}
             {floatingHearts.map((heart) => (
               <div
                 key={heart.id}
                 className="absolute bottom-12 pointer-events-none text-xl animate-heart-float"
-                style={{ left: `${heart.left}%` }}
+                style={{
+                  left: `${heart.left}%`,
+                }}
               >
                 🤍
               </div>
             ))}
           </div>
 
+          {/* Reveal Message */}
           {hasClickedFinalHeart && (
             <div className="mt-6 p-4 bg-[#fbf5ed] border border-[#e2d2c0] rounded-xl animate-in fade-in zoom-in-95 duration-300">
-              <p className="font-handwriting text-2xl font-bold text-[#4e3a2b]">{content.section7.thankYouMessage}</p>
-              <p className="text-xs font-serif italic text-[#8c7664] mt-1">Take all the space and time you need.</p>
+              <p className="font-handwriting text-2xl font-bold text-[#4e3a2b]">
+                {content.section7.thankYouMessage}
+              </p>
+              <p className="text-xs font-serif italic text-[#8c7664] mt-1">
+                Take all the space and time you need.
+              </p>
             </div>
           )}
         </div>
       </section>
+
     </div>
   );
 }
