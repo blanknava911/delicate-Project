@@ -97,6 +97,11 @@
   backface-visibility: hidden;
 }
 
+/* The letter no longer needs the old section label. */
+#section-letter > .text-center > span {
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .doll-svg *,.animate-heart-float { animation:none !important; }
 }
